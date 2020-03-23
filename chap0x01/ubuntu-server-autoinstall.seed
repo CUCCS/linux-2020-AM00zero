@@ -54,13 +54,13 @@ d-i netcfg/disable_autoconfig boolean true
 #d-i netcfg/dhcp_failed note
 #d-i netcfg/dhcp_options select Configure network manually
 
+# 可以注释网关和DNS设定
 # Static network configuration.
-# 可以注释网关和DNS设定。
 #
 # IPv4 example
 d-i netcfg/get_ipaddress string 192.168.138.42
 d-i netcfg/get_netmask string 255.255.255.0
-#d-i netcfg/get_gateway string 192.168.138.1
+d-i netcfg/get_gateway string 192.168.138.1
 d-i netcfg/get_nameservers string 192.168.138.1
 d-i netcfg/confirm_static boolean true
 #
