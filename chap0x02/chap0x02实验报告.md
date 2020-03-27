@@ -22,7 +22,7 @@
     ```
     ![](img/安装成功.png)
   - 本地关联：
-    ``` shell
+    ```shell
     asciinema auth
     ```
     ![](img/关联用户.png)
@@ -97,17 +97,17 @@
   
 ## 3.实验报错及解决
 
-在Ubuntu安装asciinema时，使用`sudo apt-add-repository ppa:zanchey/ asciinema`遇到了多种报错：
-  ![](img/安装error1.png)
-  ![](img/安装error2.png)
-  ![](img/安装error3.png)
+- 在Ubuntu安装asciinema时，使用`sudo apt-add-repository ppa:zanchey/ asciinema`遇到了多种报错：
+  - ![](img/安装error1.png)
+  - ![](img/安装error2.png)
+  - ![](img/安装error3.png)
   
-对于第三种报错查得可能为CA证书损坏，故重装CA证书：
-```shell
-sudo apt-get install --reinstall ca-certificates
-```
-报错解决→PPA添加成功：
-  ![](img/ppa&#32;add&#32;succeed.png)
+  对于第三种报错查得可能为CA证书损坏，故重装CA证书：
+  ```shell
+  sudo apt-get install --reinstall ca-certificates
+  ```
+  报错解决→PPA添加成功：
+  - ![](img/ppa&#32;add&#32;succeed.png)
 
 ## 4.参考文献
 
@@ -118,3 +118,4 @@ sudo apt-get install --reinstall ca-certificates
 
 - 受先入为主影响习惯用:wq，但是不知道平时用:x是否更好些？
 - :set + Ctrl+d/Tab是一个很便捷的操作，但是对于:set number、:set hlsearch、:set incsearch、:set ignorecase这些命令的简写:set nu、:set hls、:set is、:set ic却搜索不到，这些简写只能根据经验记忆吗？
+- github上传了markdown文件，但是明明从VScode预览上代码高亮是可见的，github里就和没有高亮一般，commit+push多次无论是bash还是shell都无果，不得不放弃挣扎 :(
