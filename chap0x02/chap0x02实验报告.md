@@ -41,6 +41,7 @@
   - Normal mode:普通模式（有说法「命令模式」），使用vim打开文件时的初始模式，可以使用h、j、k、l进行光标移动，也可以用x、d、p等对文件内容进行删改，其他模式可以通过「Esc」返回Normal模式。
   - Visual mode:可视模式，在Normal模式下，使用v、V（行选择)、shift+v和ctrl+v（块选择）都可以进入Visual模式，此时通过光标移动将选择内容高亮；其次还可以通过:set mouse=v进入Visual模式用鼠标移动将选择内容高亮。
   - Insert mode:插入模式，在Normal模式下，使用i、I、a、A、o、O、s、S、c、C都可以进入Insert模式，区别一般在于进入Insert模式后光标的插入位置不同，有的还会在进入Insert模式时执行特定的删除操作。~~其实我一般就只记住i进入QAQ。~~
+
 - Normal模式下，从当前行开始，一次向下移动光标10行的操作方法？如何快速移动到文件开始行和结束行？如何快速跳转到文件中的第N行？
   - 一次向下移动光标10行：10j
   - 移动到文件开始行：gg/1G
@@ -92,16 +93,16 @@
   
 ## 3.实验报错及解决
 
-- 在Ubuntu安装asciinema时，使用`sudo apt-add-repository ppa:zanchey/asciinema`遇到了多种报错：
-  - ![](img/安装error1.png)
-  - ![](img/安装error2.png)
-  - ![](img/安装error3.png)
+在Ubuntu安装asciinema时，使用`sudo apt-add-repository ppa:zanchey/ asciinema`遇到了多种报错：
+  ![](img/安装error1.png)
+  ![](img/安装error2.png)
+  ![](img/安装error3.png)
   
-  对于第三种报错查得可能为CA证书损坏，故重装CA证书：
-  ```bash
-  sudo apt-get install --reinstall ca-certificates
-  ```
-  报错解决→PPA添加成功：
+对于第三种报错查得可能为CA证书损坏，故重装CA证书：
+```bash
+sudo apt-get install --reinstall ca-certificates
+```
+报错解决→PPA添加成功：
   ![](img/ppa&#32;add&#32;succeed.png)
 
 ## 4.参考文献
