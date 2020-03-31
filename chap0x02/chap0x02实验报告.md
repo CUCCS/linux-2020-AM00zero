@@ -29,9 +29,23 @@
   
 ### step2：使用asciinema录制vimtutor的全程操作
 
-- 没想到一录到底有一个小时长:disappointed_relieved:，早知道就分lesson录制了:sob:，然而发现后再重新录时间上也得不偿失呜呜，~~但是希望老师师姐看在实验最重要的不是录屏的排版可观性而是学到知识的份上饶我一条狗命叭orz~~
-  
-  [![asciicast](https://asciinema.org/a/qnCIuInCNpdHqiDPvP1jMk4Of.svg)](https://asciinema.org/a/qnCIuInCNpdHqiDPvP1jMk4Of)
+- Lesson 1 
+    [![asciicast Lseeon 1][lesson1svg]][lesson1]
+- Lesson 2
+    [![asciicast Lseeon 2][lesson2svg]][lesson2]
+- Lesson 3
+    [![asciicast Lseeon 3][lesson3svg]][lesson3]
+- Lesson 4
+    [![asciicast Lseeon 4][lesson4svg]][lesson4]
+- Lesson 5
+    [![asciicast Lseeon 5][lesson5svg]][lesson5]
+- Lesson 6
+    [![asciicast Lseeon 6][lesson6svg]][lesson6]
+- Lesson 7
+    [![asciicast Lseeon 7][lesson7svg]][lesson7]
+
+- 完整录屏（~~对我其实就是之前完整录了一遍发现不符合实验要求但是又舍不得就这么丢了TAT~~）
+  [![](https://asciinema.org/a/qnCIuInCNpdHqiDPvP1jMk4Of.svg)](https://asciinema.org/a/qnCIuInCNpdHqiDPvP1jMk4Of)
 
 ### step3：vimtutor自查清单
 
@@ -119,3 +133,27 @@
 - 受先入为主影响习惯用:wq，但是不知道平时用:x是否更好些？
 - :set + Ctrl+d/Tab是一个很便捷的操作，但是对于:set number、:set hlsearch、:set incsearch、:set ignorecase这些命令的简写:set nu、:set hls、:set is、:set ic却搜索不到，这些简写只能根据经验记忆吗？
 - github上传了markdown文件，但是明明从VScode预览上代码高亮是可见的，github里就和没有高亮一般，commit+push多次无论是bash还是shell都无果，不得不放弃挣扎 :(
+
+
+
+*[·-·]:变量键值:
+[lesson1]:https://asciinema.org/a/ufSf5s4pAYQFpUffbaj7kspXC
+[lesson1svg]:https://asciinema.org/a/ufSf5s4pAYQFpUffbaj7kspXC.svg
+
+[lesson2]:https://asciinema.org/a/et5WyETjrzoI5fz382V6e622x
+[lesson2svg]:https://asciinema.org/a/et5WyETjrzoI5fz382V6e622x.svg
+
+[lesson3]:https://asciinema.org/a/6Xk9sPKuxfFe1FJxi6wVjCchC
+[lesson3svg]:https://asciinema.org/a/6Xk9sPKuxfFe1FJxi6wVjCchC.svg
+
+[lesson4]:https://asciinema.org/a/ivfmGSWIBJ6WQsqkaKJ0vJW0C
+[lesson4svg]:https://asciinema.org/a/ivfmGSWIBJ6WQsqkaKJ0vJW0C.svg
+
+[lesson5]:https://asciinema.org/a/f1GHYW4R2SqswsjCCa7Rd2r33
+[lesson5svg]:https://asciinema.org/a/f1GHYW4R2SqswsjCCa7Rd2r33.svg
+
+[lesson6]:https://asciinema.org/a/LQ5McEVxsvlQGRDFGXsNMFMq9
+[lesson6svg]:https://asciinema.org/a/LQ5McEVxsvlQGRDFGXsNMFMq9.svg
+
+[lesson7]:https://asciinema.org/a/PCgE2iGDREOxuHrDvfHJnrbQ9
+[lesson7svg]:https://asciinema.org/a/PCgE2iGDREOxuHrDvfHJnrbQ9.svg
