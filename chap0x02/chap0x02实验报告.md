@@ -136,8 +136,6 @@
 - github上传了markdown文件，但是明明从VScode预览上代码高亮是可见的，github里就和没有高亮一般，commit+push多次无论是bash还是shell都无果，不得不放弃挣扎 :(
 
 
-
-*[·-·]:变量键值:
 [lesson1]:https://asciinema.org/a/ufSf5s4pAYQFpUffbaj7kspXC
 [lesson1svg]:https://asciinema.org/a/ufSf5s4pAYQFpUffbaj7kspXC.svg
 
