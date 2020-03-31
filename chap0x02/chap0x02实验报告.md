@@ -29,22 +29,23 @@
   
 ### step2：使用asciinema录制vimtutor的全程操作
 
-- Lesson 1 
-    [![asciicast Lseeon 1][lesson1svg]][lesson1]
-- Lesson 2
-    [![asciicast Lseeon 2][lesson2svg]][lesson2]
-- Lesson 3
-    [![asciicast Lseeon 3][lesson3svg]][lesson3]
-- Lesson 4
-    [![asciicast Lseeon 4][lesson4svg]][lesson4]
-- Lesson 5
-    [![asciicast Lseeon 5][lesson5svg]][lesson5]
-- Lesson 6
-    [![asciicast Lseeon 6][lesson6svg]][lesson6]
-- Lesson 7
-    [![asciicast Lseeon 7][lesson7svg]][lesson7]
+#### Lesson 1 
+  [![asciicast Lseeon 1][lesson1svg]][lesson1]
+#### Lesson 2
+  [![asciicast Lseeon 2][lesson2svg]][lesson2]
+#### Lesson 3
+  [![asciicast Lseeon 3][lesson3svg]][lesson3]
+#### Lesson 4
+  [![asciicast Lseeon 4][lesson4svg]][lesson4]
+#### Lesson 5
+  [![asciicast Lseeon 5][lesson5svg]][lesson5]
+#### Lesson 6
+  [![asciicast Lseeon 6][lesson6svg]][lesson6]
+#### Lesson 7
+  [![asciicast Lseeon 7][lesson7svg]][lesson7]
 
-- 完整录屏（~~对我其实就是之前完整录了一遍发现不符合实验要求但是又舍不得就这么丢了TAT~~）
+#### 完整录屏
+- （~~对我其实就是之前完整录了一遍发现不符合实验要求但是又舍不得就这么丢了TAT~~）
   [![](https://asciinema.org/a/qnCIuInCNpdHqiDPvP1jMk4Of.svg)](https://asciinema.org/a/qnCIuInCNpdHqiDPvP1jMk4Of)
 
 ### step3：vimtutor自查清单
