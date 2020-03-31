@@ -135,6 +135,7 @@
 - :set + Ctrl+d/Tab是一个很便捷的操作，但是对于:set number、:set hlsearch、:set incsearch、:set ignorecase这些命令的简写:set nu、:set hls、:set is、:set ic却搜索不到，这些简写只能根据经验记忆吗？
 - github上传了markdown文件，但是明明从VScode预览上代码高亮是可见的，github里就和没有高亮一般，commit+push多次无论是bash还是shell都无果，不得不放弃挣扎 :(
 
+
 [lesson1]:https://asciinema.org/a/ufSf5s4pAYQFpUffbaj7kspXC
 [lesson1svg]:https://asciinema.org/a/ufSf5s4pAYQFpUffbaj7kspXC.svg
 
