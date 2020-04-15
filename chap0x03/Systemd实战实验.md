@@ -54,7 +54,7 @@
     	- `stat -f`：
 4. 如何实现开机自动挂载Virtualbox的共享目录分区
 	- 在Virtualbox的共享文件夹添加共享的本地文件,勾选自动挂载和固定分配
-     	![](/linux-2020-AM00zero/chap0x03/img/勾选自动挂载.png)
+     	- ![](img/勾选自动挂载.png)
 		
 	- `sudo mount /dev/sr0  /media/cdrom`：把sr0挂载到`/media/cdrom`里
   
@@ -73,12 +73,12 @@
 		```
 
     - `lsmod | grep vboxsf`：检验增强功能是否安装成功
-		![](img/查看增强功能.png)
+		- ![](img/查看增强功能.png)
 
 	- `sudo mkdir /mnt/share`创建ubuntu中用于共享的文件目录
   
 	- `sudo mount -t vboxsf linux-2020-AM00zero /mnt/shared`将本地共享文件夹挂载到指定目录
-		![](/linux-2020-AM00zero/chap0x03/img/共享完毕.png)
+		- ![](img/共享完毕.png)
 
 5. 基于LVM（逻辑分卷管理）的分区如何实现动态扩容和缩减容量？
 
