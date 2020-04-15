@@ -75,9 +75,9 @@
     - `lsmod | grep vboxsf`：检验增强功能是否安装成功
 		- ![](img/查看增强功能.png)
 
-	- `sudo mkdir /mnt/share`创建ubuntu中用于共享的文件目录
+	- `sudo mkdir /mnt/share`：创建ubuntu中用于共享的文件目录
   
-	- `sudo mount -t vboxsf linux-2020-AM00zero /mnt/shared`将本地共享文件夹挂载到指定目录
+	- `sudo mount -t vboxsf linux-2020-AM00zero /mnt/shared`：将本地共享文件夹挂载到指定目录
 		- ![](img/共享完毕.png)
 
 5. 基于LVM（逻辑分卷管理）的分区如何实现动态扩容和缩减容量？
