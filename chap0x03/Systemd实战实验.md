@@ -9,16 +9,26 @@
   
 ## 2.实验过程
 
+### 命令篇
+
 #### Section 1-3 
   [![asciicast Section 1-3][Section1-3svg]][Section1-3]
+
 #### Section 4
   [![asciicast Section 4][Section4svg]][Section4]
+
 #### Section 5
   [![asciicast Section 5][Section5svg]][Section5]
+
 #### Section 6
   [![asciicast Section 6][Section6svg]][Section6]
+
 #### Section 7
   [![asciicast Section 7][Section7svg]][Section7]
+
+### 实战篇
+
+[![asciicast battle][battlesvg]][battle]
 
 ## 3.自查清单
 
@@ -32,15 +42,15 @@
         sudo usermod -a 「username」-G sudo
         ```
 
-2. 如何将一个用户添加到一个用户组
-   	- method 1：
-        ```bash
-        sudo adduser 「username」 「groupname」
-        ```
-    - method 2：
-        ```bash
-        sudo usermod -a 「username」-G 「groupname」
-        ```
+2. 如何将一个用户添加到一个用户组 
+    ```bash
+
+	# method 1：
+    sudo adduser 「username」 「groupname」
+	# method 2：
+	sudo usermod -a 「username」-G 「groupname」
+    ```
+
 3. 如何查看当前系统的分区表和文件系统详细信息
 	- 查看分区表：
     	- `sudo sfdisk -l`：非交互式
@@ -61,6 +71,7 @@
 	- 配置升级好gcc、make、perl等
 		
 		```bash
+		
 		sudo apt-get update
 		sudo apt-get install build-essential gcc make perl dkms
 		```
@@ -68,6 +79,7 @@
 	- 安装增强功能并重启生效
   		
 		```bash
+
 		sudo /media/cdrom/./VBoxLinuxAdditions.run
 		reboot
 		```
@@ -83,58 +95,37 @@
 5. 基于LVM（逻辑分卷管理）的分区如何实现动态扩容和缩减容量？
 
 	```bash
+
 	#缩容
 	lvreduce -L -size /dev/dir
 	#扩容
 	lvextend -L +size /dev/dir
 	```
 	
-6. 如何通过systemd设置实现在网络连通时运行一个指定脚本，在网络断开时运行另一个脚本？
-	- 在`/usr/lib/systemd/system`建立在网络连通时运行指定脚本的配置文件MY_SCRIPTA
-	
-		```bash
-		[Unit]
-		Description=network up run scriptA
-		After=network.target network-online.target network-pre.target #在网络服务连通后运行脚本（即网络连通时）
+6. 如何通过systemd设置实现在网络连通时运行一个指定脚本，在网络断开时运行另一个脚本？		
+	```bash
+	#通过打开网络连通相关的Unit
+	vim /usr/lib/systemd/system/systemd-network.service
 
-		[Service]
-		Type=oneshot #执行一次
-		ExecStart=MY_SCRIPTA_PATH #运行脚本A位置
-		
-		[Install]
-		WantedBy=multi-user.target #多用户模式
+	#其[service]中添加以下内容并保存退出
+	ExecStartPost=「MY_SATART_SCRIPT_PATH」
+	ExecStopPost=「MY_STOP_SCRIPT_PATH」
 
-		```
-	- 在`/usr/lib/systemd/system`建立在网络断开时运行指定脚本的配置文件MY_SCRIPTB
-	
-		```bash
-		[Unit]
-		Description=network down run scriptB
-		Before=network.target network-online.target network-pre.target #在网络服务连通前运行脚本（即网络断开时）
+	# 重新加载配置文件
+	sudo systemctl daemon-reload
 
-		[Service]
-		Type=oneshot #执行一次
-		ExecStart=MY_SCRIPTB_PATH #运行脚本B位置
-		
-		[Install]
-		WantedBy=multi-user.target #多用户模式
+	# 重启相关服务
+	sudo systemctl restart systemd-network.service
 
-		```
-	- 重新加载配置文件，然后重新启动相关服务
-		
-		```bash
-		
-		# 重新加载配置文件
-		sudo systemctl daemon-reload
-
-		# 重启相关服务
-		sudo systemctl restart 「service」
-		```
+	# 关闭相关服务
+	sudo systemctl stop systemd-network.service
+	```
 
 7. 如何通过systemd设置实现一个脚本在任何情况下被杀死之后会立即重新启动？实现杀不死？
-	- 在`/usr/lib/systemd/system`建立运行指定脚本的配置文件MY_SCRIPTB
+	- 在`/lib/systemd/system`建立运行指定脚本的配置文件KILLME.service
 	
 		```bash
+
 		[Unit]
 		Description=KILL ME PLEASE
 		
@@ -149,16 +140,38 @@
 		[Install]
 		WantedBy=multi-user.target
 		```
+	- ![](img/创建实验脚本及配置文件.png)
 	- 重新加载配置文件，然后重新启动相关服务
 		
 		```bash
-		
+
 		# 重新加载配置文件
 		sudo systemctl daemon-reload
 
-		# 重启相关服务
-		sudo systemctl restart 「service」
+		# 重启服务
+		sudo systemctl restart KILLME.service
+
+		# 试验服务状态，状态为active
+		sudo systemctl is-active KILLME.service
+
+		# 尝试杀死服务
+		sudo sytemctl kill KILLME.service
+
+		# 再次实验服务状态，状态仍为active，证实服务无法杀死
+		sudo systemctl is-active KILLME.service
+
+		# 重启，发现由于服务无法杀死而重启困难
+		reboot
 		```
+	- ![](img/服务无法杀死.png)
+	- ![](img/无法杀死致使重启困难.png)
+  
+## 4.参考文献
+
+- [systemd.network 中文手册](http://www.jinbuguo.com/systemd/systemd.network.html)
+
+- [systemd网络开启后执行脚本](https://blog.csdn.net/qq_32835203/article/details/79258732)
+
 
 
 [Section1-3]:https://asciinema.org/a/JJJYMCts64azKqUXk8vsTvjgO
@@ -176,3 +189,6 @@
 
 [Section7]:https://asciinema.org/a/PalwkJxDSBxByA34juve5d5fG
 [Section7svg]:https://asciinema.org/a/PalwkJxDSBxByA34juve5d5fG.svg
+
+[battle]:https://asciinema.org/a/dxD7sOldRM3393c5tPWRVxcMC
+[battlesvg]:https://asciinema.org/a/dxD7sOldRM3393c5tPWRVxcMC.svg
