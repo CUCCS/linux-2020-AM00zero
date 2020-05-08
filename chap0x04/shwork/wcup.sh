@@ -1,9 +1,9 @@
+#!/usr/bin/env bash
 ##########################################################################
 # File Name: wcup.sh
 # Author: am
 # Created Time: Thu Apr 30 19:12:56 2020
 #########################################################################
-#!/usr/bin/env bash
 
 FILE_NAME="./chap0x04/tsvdata/worldcupplayerinfo.tsv"
 
@@ -176,15 +176,53 @@ function youngest(){
 	' "${FILE_NAME}" "${FILE_NAME}"
 }
 
-# awk main function
-function main(){
-	ageRangeCount
-	playerPositionCount
-	nameLongest
-	nameShortest
-	oldest
-	youngest
+
+SCRIPT_NAME="$0"
+
+function usage(){
+cat <<EOF
+Usage: bash "${SCRIPT_NAME}" [OPTION] 
+[OPTION]
+	[-a] [-p] [-l] [-s] [-o] [-y] [--help]
+[DECRIPTION] 
+	This script can show the information about the "${FILE_NAME}".
+
+	-a                      ageRangeCount
+	-p                      playerPositionCount
+	-l                      nameLongest
+	-s                      nameShortest
+	-o                      oldest
+	-y                      youngest
+	--help                  show help information
+
+EOF
 }
 
-main
+function PRINT_ERROR(){
+	>&2 echo -e "\033[31m[ERROR]: $1 \033[0m\n" # >&2 same as 1>&2, 
+	exit -1
+}
+
+ARGS=$(getopt -o aplsoy -l help  -n "${SCRIPT_NAME}" -- "$@")
+
+[ $? != 0 ]&&PRINT_ERROR "unknown argument!"
+
+eval set -- "${ARGS}"
+
+while [ -n "$1" ]; do
+	case "$1" in 
+		-a) ageRangeCount ;shift ;;
+        -p) playerPositionCount ; shift ;;
+		-l) nameLongest ; shift ;;
+		-s) nameShortest ; shift ;;
+		-o) oldest ; shift ;;
+		-y) youngest ; shift ;;
+     	--help) usage ; exit 0 ;;
+        --)shift; break ;;
+ 		*) PRINT_ERROR "Internal error!"
+	esac
+done
+
+
+
 

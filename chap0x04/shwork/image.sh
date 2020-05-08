@@ -1,9 +1,9 @@
+#!/usr/bin/env/bash
 ##########################################################################
 # File Name: image.sh
 # Author: am
 # Created Time: Tue Apr 28 12:12:55 2020
 #########################################################################
-#!/usr/bin/env/bash
 
 # env parameters
 TYPE_ARR=("jpg" "png" "svg" "jpeg")
@@ -51,7 +51,7 @@ suffix=""
 # >&2:When bash image.sh > txt is executed, the contents of the echo are not saved in txt, but are displayed in the screen back
 function PRINT_ERROR(){
 	>&2 echo -e "\033[31m[ERROR]: $1 \033[0m\n" # >&2 same as 1>&2, 
-	exit -1
+	exit 255
 }
 
 # CHECK FUNCTIONS--------
@@ -88,7 +88,7 @@ function TYPE_CHECK(){
 #-----------------------
 
 # entry parameters analysis
-ARGS=$(getopt -o :q:r:w:p:s:d:j  -l help,quality:,resolution:,watermark:,prefix:,suffix:,directory:,jpg -- "$@")
+ARGS=$(getopt -o :q:r:w:p:s:d:j -l help,quality:,resolution:,watermark:,prefix:,suffix:,directory:,jpg -- "$@")
 
 [ $? != 0 ]&&PRINT_ERROR "unknown argument!"
 

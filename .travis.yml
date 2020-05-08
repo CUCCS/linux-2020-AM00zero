@@ -41,10 +41,12 @@ script:
   - bash chap0x04/shwork/image.sh -d chap0x04/img -j -w "hello world" -s "am"
   
   # Mission 2-1
-  - bash chap0x04/shwork/wcup.sh
+  - bash chap0x04/shwork/wcup.sh --help
+  - bash chap0x04/shwork/wcup.sh -aplsoy
   
   # Mission 2-2
-  - bash chap0x04/shwork/wblog.sh "/images/MOSAIC-logosmall.gif"
+  - bash chap0x04/shwork/wblog.sh --help
+  - bash chap0x04/shwork/wblog.sh -ihur --cnt4xxurl --hostforurl "/images/MOSAIC-logosmall.gif"
 
 
 after_script:

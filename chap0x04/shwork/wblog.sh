@@ -1,9 +1,9 @@
+#!/usr/bin/env/bash
 ##########################################################################
 # File Name: wblog.sh
 # Author: am
 # Created Time: Mon May  4 21:55:48 2020
 #########################################################################
-#!/usr/bin/env/bash
 
 FILE_NAME="./chap0x04/tsvdata/web_log.tsv"
 
@@ -102,7 +102,7 @@ function cnt4xxURL(){
 	# the "uniq" does not work when duplicate lines are not adjacent, so we need sort to keep it company
 	# but, why not just use "sort -u"?
 	t4xxs=$(awk -F "\t" 'NR>1&&$6~/^4/{print $6}' "${FILE_NAME}" | sort -u )
-	for t4xx in ${t4xxs[@]}; do
+	for t4xx in "${t4xxs[@]}"; do
 		echo "${t4xx}'s top10 URL"
 		echo   "---------------------------------------------------------------------"
 		printf "%-8s\t%-42s\t%s\n" "response" "URL" "count"
@@ -148,9 +148,50 @@ function Top100hostForYourURL(){
 	echo "---------------------------------------------"
 }
 
-hostTop100
-hostIPTop100
-freURLTop100
-resCntPCT
-cnt4xxURL
-Top100hostForYourURL $1
+SCRIPT_NAME="$0"
+
+function usage(){
+cat <<EOF
+Usage: bash "${SCRIPT_NAME}" [OPTION]... 
+[OPTION]
+	[-i ip] [-h host] [-u url] [-r res] 
+	[--cnt4xxurl] [--hostforurl] [-- help] 
+[DECRIPTION] 
+	This script can show the information about the "${FILE_NAME}".
+
+	-i, --ip                hostIPTop100
+	-h, --host              hostTop100
+	-u, --url               freURLTop100
+	-r, --res               resCntPCT
+	--cnt4xxurl	            cnt4xxURL
+	--hostforurl            Top100hostForYourURL
+	--help                  show help information
+
+EOF
+}
+
+function PRINT_ERROR(){
+	>&2 echo -e "\033[31m[ERROR]: $1 \033[0m\n" # >&2 same as 1>&2, 
+	exit -1
+}
+
+ARGS=$(getopt -o ihur --long help,ip,host,url,res,cnt4xxurl,hostforurl:  -n "${SCRIPT_NAME}" -- "$@")
+
+[ $? != 0 ]&&PRINT_ERROR "unknown argument!"
+
+eval set -- "${ARGS}"
+
+while [ -n "$1" ]; do
+	case "$1" in 
+		-i|--ip) hostIPTop100 ;shift ;;
+        -h|--host) hostTop100 ; shift ;;
+		-u|--url) freURLTop100 ; shift ;;
+		-r|--res) resCntPCT ; shift ;;
+		--cnt4xxurl) cnt4xxURL ; shift ;;
+		-hostfoturl) Top100hostForYourURL "$2" ; shift 2 ;;
+     	--help) usage ; exit 0 ;;
+        --)shift; break ;;
+ 		*) PRINT_ERROR "Internal error!"
+	esac
+done
+
