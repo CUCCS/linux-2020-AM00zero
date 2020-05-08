@@ -102,7 +102,7 @@ function cnt4xxURL(){
 	# the "uniq" does not work when duplicate lines are not adjacent, so we need sort to keep it company
 	# but, why not just use "sort -u"?
 	t4xxs=$(awk -F "\t" 'NR>1&&$6~/^4/{print $6}' "${FILE_NAME}" | sort -u )
-	for t4xx in "${t4xxs[@]}"; do
+	for t4xx in ${t4xxs[@]}; do
 		echo "${t4xx}'s top10 URL"
 		echo   "---------------------------------------------------------------------"
 		printf "%-8s\t%-42s\t%s\n" "response" "URL" "count"
@@ -118,7 +118,7 @@ function cnt4xxURL(){
 			printf("%-8s\t%-42s\t%5d\n",idx[1],idx[2],show4xx[idx[1],idx[2]])
 			}
 		}
-		' "${FILE_NAME}" | grep ${t4xx} | sort -nr -k 3 | head -n 10
+		' "${FILE_NAME}" | grep "${t4xx}" | sort -nr -k 3 | head -n 10
 		echo "-------------------------------------------"
 	done
 	echo   "*---------------------------------------*"
@@ -134,6 +134,7 @@ function Top100hostForYourURL(){
 	printf "%-33s\t%s\n" "hostname" "count"
 	echo   "---------------------------------------------"
 
+	# the "'"${...}"'" is necessary
 	awk -F "\t" '
 	NR>1&&$5=="'"${URL}"'"{
 		hostcnt[$1]+=1
@@ -172,7 +173,7 @@ EOF
 
 function PRINT_ERROR(){
 	>&2 echo -e "\033[31m[ERROR]: $1 \033[0m\n" # >&2 same as 1>&2, 
-	exit -1
+	exit 255
 }
 
 ARGS=$(getopt -o ihur --long help,ip,host,url,res,cnt4xxurl,hostforurl:  -n "${SCRIPT_NAME}" -- "$@")

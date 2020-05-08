@@ -200,7 +200,7 @@ EOF
 
 function PRINT_ERROR(){
 	>&2 echo -e "\033[31m[ERROR]: $1 \033[0m\n" # >&2 same as 1>&2, 
-	exit -1
+	exit 255
 }
 
 ARGS=$(getopt -o aplsoy -l help  -n "${SCRIPT_NAME}" -- "$@")
