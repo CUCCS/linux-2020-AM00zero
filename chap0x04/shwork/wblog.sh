@@ -189,7 +189,7 @@ while [ -n "$1" ]; do
 		-u|--url) freURLTop100 ; shift ;;
 		-r|--res) resCntPCT ; shift ;;
 		--cnt4xxurl) cnt4xxURL ; shift ;;
-		-hostfoturl) Top100hostForYourURL "$2" ; shift 2 ;;
+		-hostforurl) Top100hostForYourURL "$2" ; shift 2 ;;
      	--help) usage ; exit 0 ;;
         --)shift; break ;;
  		*) PRINT_ERROR "Internal error!"
