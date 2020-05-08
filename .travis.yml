@@ -21,7 +21,7 @@ before_install:
     # web_log.tsv
 #   - wget -P chap0x04/tsvdata/  "https://c4pr1c3.gitee.io/linuxsysadmin/exp/chap0x04/web_log.tsv.7z"
     - sudo apt install p7zip-full
-    - 7z x chapx0x4/tsvdata/web_log.tsv.7z
+    - 7z x chap0x04/tsvdata/web_log.tsv.7z -ochap0x04/tsvdata
 
 script:
   - bash test.sh
