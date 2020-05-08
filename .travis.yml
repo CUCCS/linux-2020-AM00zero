@@ -24,7 +24,6 @@ before_install:
     - 7z x chap0x04/tsvdata/web_log.tsv.7z -ochap0x04/tsvdata
 
 script:
-  - bash test.sh
   # Mission 1
   # HELP INFORMATION
   - bash chap0x04/shwork/image.sh --help
