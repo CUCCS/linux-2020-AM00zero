@@ -176,7 +176,7 @@ function PRINT_ERROR(){
 	exit 255
 }
 
-ARGS=$(getopt -o ihur --long help,ip,host,url,res,cnt4xxurl,hostforurl:  -n "${SCRIPT_NAME}" -- "$@")
+ARGS=$(getopt -o ihur -l help,ip,host,url,res,cnt4xxurl,hostforurl:  -n "${SCRIPT_NAME}" -- "$@")
 
 [ $? != 0 ]&&PRINT_ERROR "unknown argument!"
 
@@ -189,7 +189,7 @@ while [ -n "$1" ]; do
 		-u|--url) freURLTop100 ; shift ;;
 		-r|--res) resCntPCT ; shift ;;
 		--cnt4xxurl) cnt4xxURL ; shift ;;
-		-hostforurl) Top100hostForYourURL "$2" ; shift 2 ;;
+		--hostforurl) Top100hostForYourURL "$2" ; shift 2 ;;
      	--help) usage ; exit 0 ;;
         --)shift; break ;;
  		*) PRINT_ERROR "Internal error!"
