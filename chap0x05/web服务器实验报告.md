@@ -31,7 +31,8 @@
     dpkg -l | grep apache2
     ```
     ![](img/删除apache2.png)
-
+- 主机Windows修改` C:\Windows\System32\drivers\etc`中`hosts`文件，添加域名解析
+  ![](img/host文件inf.png)
 ---
 
 #### 【Nginx/MySQL/PHP】
@@ -103,7 +104,7 @@
     ```bash
     vim /opt/verynginx/openresty/nginx/conf/nginx.conf
     # 将user从Nginx修改为www-data
-    # 修改server监听端口为8080以防止与Nginx冲突
+    # 修改server监听端口为8000以防止与Nginx冲突
     ```
 
 - 使用`chmod -R 777 /opt/verynginx/verynginx/configs`添加nginx进程对`/opt/verynginx/verynginx/configs/`的写权限，以防止进入VeryNginx配置页面无法保存或其他问题的可能
@@ -111,7 +112,7 @@
 - 主机访问80端口：
     ![](img/80OpenResty.png)
 
-- 在主机访问VeryNginx配置界面，从`http://vn.sec.cuc.edu.cn//verynginx/index.html:80`登录
+- 在主机访问VeryNginx配置界面，从`http://vn.sec.cuc.edu.cn:8000//verynginx/index.html`登录
     ![](img/web配置verynginx.png) 
     输入默认账号密码：
     ```
@@ -124,6 +125,8 @@
 ---
 
 #### 【WordPress】
+
+<font size=1>*注：此部分截图是在4.5问题前截取的，因此端口等其他细节方面会有出入，但所有功能都是完整运行且正常的。4.5问题解决后由未名原因wordpress出现了一些渲染的失效，为保证实验报告观看性这里放置4.5问题解决前的截图。*</font>
 
 - 创建数据库和供WordPress使用的用户
     ```bash
@@ -161,8 +164,7 @@
     从中写入如下类似：
     ```bash
     server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
+        listen 127.0.0.1:80;
 
         root /var/www/html/wp.sec.cuc.edu.cn;
         index index.php index.html index.htm index.nginx-debian.html;
@@ -224,7 +226,7 @@
     #从WordPress密钥生成器获取安全值
     curl -s https://api.wordpress.org/secret-key/1.1/salt/
     #将生成的配置行直接粘贴到配置文件中，替换原来包含虚拟值的部分以设置安全密钥
-    sudo vim /var/www/wordpress/wp-config.php
+    sudo vim /var/wwhtml/wp.sec.cuc.edu.cn/wp-config.php
     
     #####同时在文件开头修改数据库连接设置，并在任意处设置WordPress应该用于写入文件系统的方法
 
@@ -248,7 +250,7 @@
   - 添加代理通行证
     ![](img/wpProxyPass.png)
 
-- 通过80端口访问`wp.sec.cuc.edu.cn`,自动进入安装界面
+- 访问`wp.sec.cuc.edu.cn`,自动进入安装界面
     ![](img/wordpress进入.png)
 - 信息填写完毕后，进入仪表盘页面，配置好自己的光明山博客叭~（￣︶￣）
     ![](img/wordpress首页.png)
@@ -286,14 +288,13 @@
     #####文件修改点如下：
 
     #1.更新listen指令指向443端口，并包括之前添加的SSL代码段
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 127.0.0.1:443 ssl;
     include snippets/self-signed.conf;
-    include snippets/ssl-params.conf;
+    #include snippets/ssl-params.conf;
+
     #2.配置第二个服务器块,侦听端口80并执行到HTTPS的重定向
     server {
-        listen 80;
-        listen [::]:80;
+        listen 127.0.0.1:80;
 
         server_name wp.sec.cuc.edu.cn;
 
@@ -310,12 +311,12 @@
     
 - 配置VeryNginx使用SSL
     ```bash
-    #在/opt/verynginx/openresty/nginx/conf/nginx.conf中修改server块，使verynginx监听443端口
+    #在/opt/verynginx/openresty/nginx/conf/nginx.conf中修改server块，使verynginx监听8443端口
     vim /opt/verynginx/openresty/nginx/conf/nginx.conf
     ```
     ```bash
     server {
-      ¦   listen      8080;
+      ¦   listen      8000;
       ¦   listen      8433 ssl;
       ¦   include /etc/nginx/snippets/self-signed.conf;
   
@@ -342,7 +343,7 @@
   - 在Scheme Lock添加规则并勾选Enable，以强制访问https
     ![](img/wphttpsSL.png)
     
-- 从443端口访问`https://wp.sec.cuc.edu.cn`
+- 从ssl端口访问`https://wp.sec.cuc.edu.cn`
     ![](img/HTTPSwp.png)
 
 #### 【DVWA】
@@ -406,8 +407,7 @@
     从中写入如下类似：
     ```bash
     server {
-        listen 8008 default_server;
-        listen [::]:8008 default_server;
+        listen 127.0.0.1:8008 default_server;
 
         root /var/www/html/dvwa.sec.cuc.edu.cn;
         index index.php index.html index.htm index.nginx-debian.html;
@@ -448,7 +448,7 @@
   - 添加代理通行证
     ![](img/dvwaProxyPass.png)
 
-- 通过8008端口访问`dvwa.sec.cuc.edu.cn`
+- 通过8000端口访问`dvwa.sec.cuc.edu.cn`
     ![](img/dvwaGET.png)
     Create/Reset Database生成需要使用的数据库
     ![连接成功](img/dvwaDBcreat.png)
@@ -461,6 +461,8 @@
     ![](img/dvwaLOGINsuccess.png)
 
 #### 安全加固要求
+
+<font size=1>*注：此部分截图由于4.5问题的原因在实验过程中产生了端口的更换，因此端口等其他细节方面会有出入，但所有功能都是完整运行且正常的。*</font>
 
 ##### 1.使用IP地址方式均无法访问上述任意站点
 
@@ -530,7 +532,26 @@
 ##### 6.定制VeryNginx的访问控制策略规则
 
 - 限制DVWA站点的单IP访问速率为每秒请求数 < 50，限制Wordpress站点的单IP访问速率为每秒请求数 < 20
-  ![](img/Frelimit.png)
+  - 设置Frequency Limit
+    ![](img/Frelimit.png)
+  - 设置对于Response
+    ![](img/FreRS.png)
+- 压力测试
+  - 安装apache2-utils
+    ```bash
+    sudo apt update
+    sudo apt install apache2-utils
+    ```
+  - 使用ab命令进行压测
+    ```bash
+    ab -n 100 http://dvwa.sec.cuc.edu.cn:8000/login.php
+    ab -n 100 http://wp.sec.cuc.edu.cn:8000/
+    ```
+  - DVWA测试结果，可见100次访问准备失败50次
+    ![](img/FreDVWA.png)
+  - wordpress测试结果，可见100次访问准备失败80次
+    ![](img/FreWP.png)
+
 - 超过访问频率限制的请求直接返回**自定义错误提示信息页面-4**
   ![](img/FASTTTTT.png)
 - 禁止curl访问
@@ -543,14 +564,15 @@
 
 ## 4.参考文献
 
-- [How To Install WordPress with LEMP on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-on-ubuntu-18-04)
-- [How To Create a Self-Signed SSL Certificate for Nginx in Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-18-04)
-- [How To Install Linux, Nginx, MySQL, PHP (LEMP stack) on Ubuntu 18.04](https://www.digitalocean.com/community/tags/databases)
-- [DAMN VULNERABLE WEB APPLICATION's README.md](https://github.com/ethicalhack3r/DVWA)
-- [VeryNginx's readme.md](https://github.com/alexazhou/VeryNginx)
-- [楚盟师哥的博客关于VeryNginx配置内容的一些思路【tql】](https://github.com/CUCCS/linux-2019-DcmTruman/blob/0x05/0x05/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A.md)
-  - 小想法：师哥错误提示页面返回的有些是默认200，我觉得403更符合一点点orz？
-- [VeryNginx_wiki](https://github.com/alexazhou/VeryNginx/wiki/%E7%9B%AE%E5%BD%95)
+- [1 - How To Install WordPress with LEMP on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-on-ubuntu-18-04)
+- [2 - How To Create a Self-Signed SSL Certificate for Nginx in Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-18-04)
+- [3 - How To Install Linux, Nginx, MySQL, PHP (LEMP stack) on Ubuntu 18.04](https://www.digitalocean.com/community/tags/databases)
+- [4 - DAMN VULNERABLE WEB APPLICATION's README.md](https://github.com/ethicalhack3r/DVWA)
+- [5 - VeryNginx's readme.md](https://github.com/alexazhou/VeryNginx)
+- [6 - jckling实验报告总结1中对于自己实验问题的启示](https://github.com/CUCCS/linux-2019-jckling/blob/0x05/0x05/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A.md)
+  - 依此请教师姐，在启发后实验的全部问题都如数解决，师姐赛高！
+  - 此问题在上文简以「4.5」称
+- [7 - VeryNginx_wiki](https://github.com/alexazhou/VeryNginx/wiki/%E7%9B%AE%E5%BD%95)
 
 ## 5.实验插曲
 
