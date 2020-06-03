@@ -71,7 +71,7 @@
 - [x] 配置一个提供匿名访问的FTP服务器，匿名访问者可以访问1个目录且仅拥有该目录及其所有子目录的只读访问权限；
   - 如下图使用匿名访问目标主机
       ![](img/anonymous访问.png)
-  - 相关配置
+  - `vsftpd.conf`中相对应的配置板块
       ![](img/anonymousconf.png)
 
 - [x] 配置一个支持用户名和密码方式访问的账号，该账号继承匿名访问者所有权限，且拥有对另1个独立目录及其子目录完整读写（包括创建目录、修改文件、删除文件等）权限；
@@ -80,7 +80,7 @@
       ![](img/linuxsammylogin.png)
   - 在windows10端使用FileZilla访问目标主机并传输测试文件`test.txt`成功
       ![](img/FileZilla传输成功.png)
-  - 相关配置
+  -  `vsftpd.conf`中相对应的配置板块
       ![](img/1.2配置writelocal.png)
       ![](img/vsftpddenyallowconf.png)
       ![](img/vsftpduserlistconf.png)
@@ -95,13 +95,13 @@
   - 在这里我们加入一个`amftp`用户
       ![](img/addamftp.png)
   
-  - 相关配置
+  - 对应`chroot`的相关配置
       ![](img/vsftpconfchrootYES.png)
 
 - [x] 匿名访问权限仅限白名单IP来源用户访问，禁止白名单IP以外的访问；
-  - 白名单内IP来源用户可以访问
+  - 白名单内IP来源的用户可以访问目标主机
     ![](img/白名单内可以登录.png)
-  - 白名单外IP禁止访问
+  - 而白名单外IP则禁止访问
     ![](img/白名单外无法访问.png)
   - 相关配置
     ```bash
@@ -119,7 +119,7 @@
       ![](img/普通ftp请求将被拒绝.png)
   - 在Filezilla中通过如下站点配置进行访问
       ![](img/filezilla站点.png)
-  - 生成如下证书
+  - 生成如下证书~~因为懒所以没打码:P~~
       ![](img/fielzilla证书.png)
   - FTPS连接成功
       ![](img/ftp完结~.png)
@@ -133,10 +133,10 @@
       ![](img/挂载成功.png)
   - 只读访问权限测试
       ![](img/只读文件夹.png)
-  - 读写访问权限测试
+  - 读写访问权限测试，尝试`touch`新文件成功
       ![](img/可写文件夹.png)
 - [x] 实验报告中请记录你在NFS客户端上看到的：
-  - [x] 共享目录中文件、子目录的属主、权限信息
+  - [x] 共享目录中文件、子目录的属主、权限信息，在client端`ls -la`即可见
       ![](img/clientgenral.png)
       ![](img/clienthome.png)
 
@@ -169,24 +169,22 @@
 - [x] Linux设置用户名密码方式的共享目录
     ![](img/sambademo.png)
 
-- 设置windows共享文件夹
+- 设置windows共享文件夹`Sambashare`，如下为文件夹属性
     ![](img/windows共享文件夹.png)
 
 - 由windows访问linux端的匿名目录和userdemo目录
     ![](img/sambawindows访问linux.png)
-
-- 设置windows共享文件夹
-    ![](img/windows共享文件夹.png)'
-- [x]  Linux访问Windows的用户名密码方式共享目录
+- [x] Linux访问Windows的用户名密码方式共享目录
 - 查看windows的所有共享目录
     ![](img/查看windows共享文件.png)
 
 - [x] 下载整个目录
-    ![](img/下载全部文件.png)
+  - ![](img/下载全部文件.png)
+
 #### DHCP
 
 - [x] 2台虚拟机使用Internal网络模式连接，其中一台虚拟机上配置DHCP服务，另一台服务器作为DHCP客户端，从该DHCP服务器获取网络地址配置
-  - 修改server端`/etc/network/interfaces`文件
+  - 修改server端`/etc/network/interfaces`文件，示例如下：
       ![](img/dhcpinterfaces.png)
   - 修改server端`/etc/default/isc-dhcp-server`文件，配置提供DHCP服务的网卡
       ![](img/iscdhcpserverconf.png)
@@ -199,9 +197,9 @@
 #### DNS
 
 - [x] 基于上述Internal网络模式连接的虚拟机实验环境，在DHCP服务器上配置DNS服务，使得另一台作为DNS客户端的主机可以通过该DNS服务器进行DNS查询
-  - 在server端`/etc/bind/named.conf.options`中设置信任客户端
+  - 在server端`/etc/bind/named.conf.options`中设置信任客户端，同时在options选项中添加如下块：
       ![](img/dnsoptionsconf.png)
-    同时在options选项中添加：
+    
       ![](img/dnsoptionsconf2.png)
   - [x] 在DNS服务器上添加 zone "cuc.edu.cn" 的以下解析记录
   - 在server端`/etc/bind/named.conf.local`文件添加如下：
@@ -251,10 +249,10 @@
 
 #### script
 
-[vars.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/var.sh) ：变量定义
-[main.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/main.sh)：主函数
-[prepare.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/prepare.sh)： 准备工作，如预执行apt、scp、cp、sed等命令
-[ftp.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/ftp.sh) 、[dns.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/dns.sh) 、[nfs.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/nfs.sh) 、[dhcp.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/dhcp.sh) 、[samba.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/samba.sh) 、[ssh.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/ssh.sh) ：顾名思义完成相关任务
+- [vars.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/var.sh) ：变量定义
+- [main.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/main.sh)：主函数
+- [prepare.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/prepare.sh)： 准备工作，如预执行apt、scp、cp、sed等命令
+- [ftp.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/ftp.sh) 、[dns.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/dns.sh) 、[nfs.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/nfs.sh) 、[dhcp.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/dhcp.sh) 、[samba.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/samba.sh) 、[ssh.sh](https://github.com/CUCCS/linux-2020-AM00zero/tree/chap0x06/chap0x06/shwork/ssh.sh) ：顾名思义完成相关任务
 
 ## 4.参考文献
 
