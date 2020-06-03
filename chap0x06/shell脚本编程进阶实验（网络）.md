@@ -8,12 +8,12 @@
   - 虚拟机：VirtualBox 6.1.4 r136177 (Qt5.6.2)
   - Linux系统：Ubuntu 18.04.4 server 64-bit
   - 配置nat和host-only网卡(192.168.56.101)
-  ![](img/测试主机Aipa.png)
+    ![](img/测试主机Aipa.png)
 - 目标主机B
   - 虚拟机：VMware® Workstation 15 Pro (15.5.1 build-15018445)
   - Linux系统：Ubuntu-18.04.4 LTS desktop 64-bit
   - 配置nat和host-only网卡(192.168.179.134) 
-  ![](img/目标主机ipa.png)
+    ![](img/目标主机ipa.png)
 
   
 ## 2.实验过程
@@ -63,40 +63,40 @@
   PasswordAuthentication no
   ```
 - 此时在工作主机A执行`ssh root@192.168.179.133`，测试免密登陆成功！
-  ![](img/NOPASSWORDLOGIN！！.png)
+    ![](img/NOPASSWORDLOGIN！！.png)
 
 #### FTP：vsftpd
 ---
 
 - [x] 配置一个提供匿名访问的FTP服务器，匿名访问者可以访问1个目录且仅拥有该目录及其所有子目录的只读访问权限；
   - 如下图使用匿名访问目标主机
-    ![](img/anonymous访问.png)
+      ![](img/anonymous访问.png)
   - 相关配置
-    ![](img/anonymousconf.png)
+      ![](img/anonymousconf.png)
 
 - [x] 配置一个支持用户名和密码方式访问的账号，该账号继承匿名访问者所有权限，且拥有对另1个独立目录及其子目录完整读写（包括创建目录、修改文件、删除文件等）权限；
 
   - 如下在linux工作主机端使用`sammy`访问目标主机
-    ![](img/linuxsammylogin.png)
+      ![](img/linuxsammylogin.png)
   - 在windows10端使用FileZilla访问目标主机并传输测试文件`test.txt`成功
-    ![](img/FileZilla传输成功.png)
+      ![](img/FileZilla传输成功.png)
   - 相关配置
-    ![](img/1.2配置writelocal.png)
-    ![](img/vsftpddenyallowconf.png)
-    ![](img/vsftpduserlistconf.png)
+      ![](img/1.2配置writelocal.png)
+      ![](img/vsftpddenyallowconf.png)
+      ![](img/vsftpduserlistconf.png)
 
   - [x] 该账号仅可用于FTP服务访问，不能用于系统shell登录；
     - 第一种方法是在创建用户后执行`usermod -s /usr/sbin/nologin sammy`
     - 我们采用的是第二种方法，在创建用户时就添加shell选项，即如脚本所示`adduser --shell /usr/sbin/nologin "${FUSERname}"`
     - 在目标主机使用系统shell登录失败，Mission accomplished~
-      ![](img/noshellloginftp.png)
+        ![](img/noshellloginftp.png)
 
 - [x] FTP用户不能越权访问指定目录之外的任意其他目录和文件；
   - 在这里我们加入一个`amftp`用户
-    ![](img/addamftp.png)
+      ![](img/addamftp.png)
   
   - 相关配置
-    ![](img/vsftpconfchrootYES.png)
+      ![](img/vsftpconfchrootYES.png)
 
 - [x] 匿名访问权限仅限白名单IP来源用户访问，禁止白名单IP以外的访问；
   - 白名单内IP来源用户可以访问
@@ -114,34 +114,34 @@
 - [x] （可选加分任务）使用FTPS服务代替FTP服务，上述所有要求在FTPS服务中同时得到满足；
   - 为了实验方便实现我们先将白名单解除
   - 如脚本代码所示，我们通过`openssl`来创建一个新的证书，并进行如下配置：
-    ![](img/ssl配置.png)
+      ![](img/ssl配置.png)
   - 使用直接ftp命令访问将会被拒绝
-    ![](img/普通ftp请求将被拒绝.png)
+      ![](img/普通ftp请求将被拒绝.png)
   - 在Filezilla中通过如下站点配置进行访问
-    ![](img/filezilla站点.png)
+      ![](img/filezilla站点.png)
   - 生成如下证书
-    ![](img/fielzilla证书.png)
+      ![](img/fielzilla证书.png)
   - FTPS连接成功
-    ![](img/ftp完结~.png)
+      ![](img/ftp完结~.png)
   - 传输文件测试
-    ![](img/ftps传输示例.png)
+      ![](img/ftps传输示例.png)
 
 #### NFS
 
 - [x] 在1台Linux上配置NFS服务，另1台电脑上配置NFS客户端挂载2个权限不同的共享目录，分别对应只读访问和读写访问权限；
   - 在工作主机上挂载目标主机上分配的共享目录
-    ![](img/挂载成功.png)
+      ![](img/挂载成功.png)
   - 只读访问权限测试
-    ![](img/只读文件夹.png)
+      ![](img/只读文件夹.png)
   - 读写访问权限测试
-    ![](img/可写文件夹.png)
+      ![](img/可写文件夹.png)
 - [x] 实验报告中请记录你在NFS客户端上看到的：
   - [x] 共享目录中文件、子目录的属主、权限信息
-    ![](img/clientgenral.png)
-    ![](img/clienthome.png)
+      ![](img/clientgenral.png)
+      ![](img/clienthome.png)
 
   - [x] 你通过NFS客户端在NFS共享目录中新建的目录、创建的文件的属主、权限信息
-    ![](img/hostview.png)
+      ![](img/hostview.png)
 
   - [x] 上述共享目录中文件、子目录的属主、权限信息和在NFS服务器端上查看到的信息一样吗？无论是否一致，请给出你查到的资料是如何讲解NFS目录中的属主和属主组信息应该如何正确解读。
 
@@ -164,66 +164,66 @@
 #### samba
 
 - [x] Linux设置匿名访问共享目录：
-  ![](img/sambaguest.png)
+    ![](img/sambaguest.png)
 
 - [x] Linux设置用户名密码方式的共享目录
-  ![](img/sambademo.png)
+    ![](img/sambademo.png)
 
 - 设置windows共享文件夹
-  ![](img/windows共享文件夹.png)
+    ![](img/windows共享文件夹.png)
 
 - 由windows访问linux端的匿名目录和userdemo目录
-  ![](img/sambawindows访问linux.png)
+    ![](img/sambawindows访问linux.png)
 
 - 设置windows共享文件夹
-  ![](img/windows共享文件夹.png)'
+    ![](img/windows共享文件夹.png)'
 - [x]  Linux访问Windows的用户名密码方式共享目录
 - 查看windows的所有共享目录
-  ![](img/查看windows共享文件.png)
+    ![](img/查看windows共享文件.png)
 
 - [x] 下载整个目录
-  ![](img/下载全部文件.png)
+    ![](img/下载全部文件.png)
 #### DHCP
 
 - [x] 2台虚拟机使用Internal网络模式连接，其中一台虚拟机上配置DHCP服务，另一台服务器作为DHCP客户端，从该DHCP服务器获取网络地址配置
   - 修改server端`/etc/network/interfaces`文件
-    ![](img/dhcpinterfaces.png)
+      ![](img/dhcpinterfaces.png)
   - 修改server端`/etc/default/isc-dhcp-server`文件，配置提供DHCP服务的网卡
-    ![](img/iscdhcpserverconf.png)
+      ![](img/iscdhcpserverconf.png)
   - 在server端`/etc/dhcp/dhcpd.conf`文件进行如下修改
-    ![](img/dhcpdconf.png)
+      ![](img/dhcpdconf.png)
   - server端重启服务`service isc-dhcp-server restart`
   - 在client端`sudo vim /etc/netplan/01-netcfg.yaml`配置内部网卡的DHCP服务，将`enp0s9`的`dhcp4`打开，最终`ip a`查看DHCP配置结果如下
-  ![](img/dhcpenp0s9.png)
+      ![](img/dhcpenp0s9.png)
 
 #### DNS
 
 - [x] 基于上述Internal网络模式连接的虚拟机实验环境，在DHCP服务器上配置DNS服务，使得另一台作为DNS客户端的主机可以通过该DNS服务器进行DNS查询
   - 在server端`/etc/bind/named.conf.options`中设置信任客户端
-    ![](img/dnsoptionsconf.png)
+      ![](img/dnsoptionsconf.png)
     同时在options选项中添加：
-    ![](img/dnsoptionsconf2.png)
+      ![](img/dnsoptionsconf2.png)
   - [x] 在DNS服务器上添加 zone "cuc.edu.cn" 的以下解析记录
   - 在server端`/etc/bind/named.conf.local`文件添加如下：
-    ![](img/dnsloaclconf.png)
+      ![](img/dnsloaclconf.png)
   - 创建相应目录与文件`db.cuc.edu.cn`，并修改如下：
-    ```bash
-    sudo mkdir /etc/bind/zones
-    cp /etc/bind/db.local /etc/bind/zones/db.cuc.edu.cn
-    ```
-     ![](img/dnsbindzones.png)
+      ```bash
+      sudo mkdir /etc/bind/zones
+      cp /etc/bind/db.local /etc/bind/zones/db.cuc.edu.cn
+      ```
+      ![](img/dnsbindzones.png)
   - `sudo service bind9 restart`重启bind9服务
   - 在client端`sudo apt install resolvconf`安装并配置resolvconf文件`/etc/resolvconf/resolv.conf/head`如下
-    ![](img/dnsresolvconfdhead.png)
+      ![](img/dnsresolvconfdhead.png)
   - 执行测试如下
-    ```bash
-    sudo resolvconf -u
-    dig wp.sec.cuc.edu.cn
-    dig svwa.sec.cuc.edu.cn
-    ```
-    ![](img/dnsclient测试.png)
-    ![](img/dnsdig.png)
-    ![](img/dnsdigdvwa.png)
+      ```bash
+      sudo resolvconf -u
+      dig wp.sec.cuc.edu.cn
+      dig svwa.sec.cuc.edu.cn
+      ```
+      ![](img/dnsclient测试.png)
+      ![](img/dnsdig.png)
+      ![](img/dnsdigdvwa.png)
  
   
 
