@@ -246,7 +246,7 @@
   - [dhcpd.conf](https://github.com/CUCCS/linux-2020-AM00zero/blob/chap0x06/chap0x06/conf/dhcpd.conf)
   - [isc-dhcp-server](https://github.com/CUCCS/linux-2020-AM00zero/blob/chap0x06/chap0x06/conf/isc-dhcp-server)
 - DNS
-  - [named.conf.local](https://github.com/CUCCS/linux-2020-AM00zero/blob/chap0x06/chap0x06/conf/[named.conf.local)
+  - [named.conf.local](https://github.com/CUCCS/linux-2020-AM00zero/blob/chap0x06/chap0x06/conf/named.conf.local)
   - [named.conf.options](https://github.com/CUCCS/linux-2020-AM00zero/blob/chap0x06/chap0x06/conf/named.conf.options)
   - [db.cuc.edu.cn](https://github.com/CUCCS/linux-2020-AM00zero/blob/chap0x06/chap0x06/conf/db.cuc.edu.cn)
   - [interfaces](https://github.com/CUCCS/linux-2020-AM00zero/blob/chap0x06/chap0x06/conf/interfaces)
