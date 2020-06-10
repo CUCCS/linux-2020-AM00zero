@@ -11,5 +11,5 @@ $TTL    604800
 ;
         IN      NS      ns.cuc.edu.cn.
 ns      IN      A       ${INTERFACE_ADDRESS}
-wp.sec.cuc.edu.cn       IN      A       ${INTERFACE_ADDRESS}
+wp.sec.cuc.edu.cn       IN      A       INTERFACE_ADDRESS
 dvwa.sec.cuc.edu.cn     IN      CNAME   wp.sec.cuc.edu.cn
