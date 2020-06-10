@@ -1,8 +1,6 @@
 #!/usr/bin/env/bash
 
-HOSTname=$1
-SMB_USER=$2
-SMB_PASS=$3
+source vars.sh
 
 ssh root@$HOSTname<<ssh
 

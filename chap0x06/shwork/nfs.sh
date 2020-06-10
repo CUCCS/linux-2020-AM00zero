@@ -1,8 +1,5 @@
 #!/usr/bin/env/bash
-
-HOSTname=$1
-CLTENTip=$2
-
+source vars.sh
 #host work
 
 ssh root@{$HOSTname}<<ssh

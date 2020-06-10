@@ -1,8 +1,6 @@
 #!/usr/bin/env/bash
 
-FUSERname=$1
-HOSTname=$2
-FUSERpasswd=$3
+source vars.sh
 
 ssh root@${HOSTname}<<ssh
 

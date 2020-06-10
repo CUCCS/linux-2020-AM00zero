@@ -1,5 +1,7 @@
 #!/usr/bin/env/bash
 
+source vars.sh
+
 function PRINT_ERROR(){
 	>&2 echo -e "\033[31m[ERROR]: $1 \033[0m\n" # >&2 same as 1>&2, 
 	exit 255
@@ -14,10 +16,10 @@ then
 	PRINT_ERROR "Fail to update!"
 fi
 
-echo "${passwd}" | sudo -S apt install nfs-common 
+echo "${passwd}" | sudo -S apt install nfs-common resolvcon
 if [ $? -ne 0 ] ;
 then
-	PRINT_ERROR "Fail install the nfs-common package!"
+	PRINT_ERROR "Fail install the packages!"
 fi
 
 #ssh->host apt work
